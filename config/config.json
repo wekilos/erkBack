@@ -1,0 +1,27 @@
+{
+
+    "development": {
+      "name":"postgres",
+      "password":"",
+      "database":"erk",
+      "host": "95.85.120.183",
+      "dialect": "postgres"
+    },
+    "test": {
+      "name":"postgres",
+      "password":"",
+      "database":"erk",
+      "host": "95.85.120.183",
+      "dialect": "postgres"
+    },
+    "production": {
+      "use_env_variable": "DATABASE_URL",
+      "name":"postgres",
+      "password":"",
+      "database":"erk",
+      "host": "95.85.120.183",
+      "dialect": "postgres"
+    }
+  }
+  
+ 
