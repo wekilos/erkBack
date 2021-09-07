@@ -3,10 +3,10 @@ var Sequelize = require("sequelize");
 const DATABASE = process.env.DATABASE || 'erk';
 const USERNAME = process.env.USERNAME || 'postgres';
 const PASSWORD = process.env.PASSWORD || '';
-const HOST = process.env.HOST || '95.85.120.183';
+const HOST = process.env.HOST ;
 
-const sequelize = new Sequelize("erk", "postgres", "", {
-  host: HOST || 'localhost',
+const sequelize = new Sequelize("erk", "postgres", "samsyk1902", {
+  host:  'localhost',
   port: "5432",
   dialect: "postgres",
 })

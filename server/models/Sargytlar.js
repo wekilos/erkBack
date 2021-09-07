@@ -30,6 +30,8 @@ var Sargytlar = sequelize.define(
         surat2:Sequelize.STRING,
         surat3:Sequelize.STRING,
         surat4:Sequelize.STRING,
+        surat5:Sequelize.STRING,
+        surat6:Sequelize.STRING,
         yukHazir:Sequelize.STRING,
         delivered:{type:Sequelize.BOOLEAN,default:false},
         yatyryldy:{type:Sequelize.BOOLEAN,default:false},

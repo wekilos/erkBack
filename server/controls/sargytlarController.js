@@ -394,11 +394,101 @@ const update = async(req,res)=>{
 }
 
 
+const UpdateAdmin = async(req,res)=>{
+  const { sargyt_id } = req.params;
+  const data = req.body.data;
+  // getting base64 image and converting to buffer
+  function decodeBase64Image(dataString) {
+    var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
+      response = {};
+  
+    if (matches.length !== 3) {
+      return new Error('Invalid input string');
+    }
+  
+    response.type = matches[1];
+    response.data = new Buffer(matches[2], 'base64');
+  
+    return response;
+  }
+
+  let FountSargyt = await Sargytlar.findOne({where:{id:sargyt_id}});
+
+  let surat4=FountSargyt.surat4;
+  let surat5 = FountSargyt.surat5;
+  let surat6 =FountSargyt.surat6;
+  if(data.surat4){
+    var imageBuffer = decodeBase64Image(req.body.data.surat4.img);
+     // converting buffer to original image to /upload folder
+    let randomNumber = Math.floor(Math.random() * 999999999999);
+    console.log("random Number:",randomNumber);
+    surat4 = `./uploads/`+randomNumber+`${req.body.data.surat4.img_name}`;
+    fs.writeFile(surat4, imageBuffer.data, function(err) { console.log(err) });
+  }
+  if(data.surat5){
+    var imageBuffer5 = decodeBase64Image(data.surat5.img);
+     // converting buffer to original image to /upload folder
+    let randomNumber5 = Math.floor(Math.random() * 999999999999);
+    console.log("random Number:",randomNumber5);
+    surat5 = `./uploads/`+randomNumber5+`${data.surat5.img_name}`;
+    fs.writeFile(surat5, imageBuffer5.data, function(err) { console.log(err) });
+  }
+  if(data.surat6){
+    var imageBuffer6 = decodeBase64Image(data.surat6.img);
+     // converting buffer to original image to /upload folder
+    let randomNumber6 = Math.floor(Math.random() * 999999999999);
+    console.log("random Number:",randomNumber6);
+    surat6 = `./uploads/`+randomNumber6+`${data.surat6.img_name}`;
+    fs.writeFile(surat6, imageBuffer6.data, function(err) { console.log(err) });
+  }
+ 
+  ///////////////////////////////////////////////////////////////////////////////////////////
+
+console.log("surat5",surat5)
+  Sargytlar.update({
+      surat4:surat4,
+      surat5:surat5,
+      surat6:surat6
+  },{
+    where:{
+      id:sargyt_id
+    }
+  }
+  ).then(()=>{
+      res.status(200).json({
+          msg:"successfully"
+      })
+  }).catch((err)=>{
+      console.log(err);
+  })
+  
+}
+
+
+
 const updateStatus = async(req,res)=>{
   const {sargyt_id} = req.params;
   const {status_id,yukHazir} = req.body;
 
   const foundSargyt = await Sargytlar.findOne({where:{id:sargyt_id}});
+  const UserData = await Users.findOne({where:{id:fountSargyt.UserId}});
+
+  let userMail = UserData.email;
+    let subject = "Erk Trading"
+    let text = "";
+    if(status_id==1){text = "Siziň harydyňyzyň Gelmegine Garaşylýar! \n\n Ваш товар в ожидании!";}
+    if(status_id==2){text = "Siziň harydyňyz Ammara geldi! \n\n Ваш товар Прибыл на склад!";}
+    if(status_id==3){text = "Siziň Ýüküňiz ugradyldy! \n\n Ваш груз отправлен!";}
+    if(status_id==4){text = "Siziň harydyňyz Ýolda! \n\n Ваш товар В пути!";}
+    if(status_id==5){text = "Siziň harydyňyz Türkmenistanyň ammaryna geldi! \n\n Ваш товар Прибыл на склад в Туркменистан!";}
+    if(status_id==6){text = "Siziň harydyňyz Gowşurma nokadyna ugradyldy! \n\n Ваш товар Отправлено в пункт доставки!";}
+    await sendEmailtoUser({
+      userMail,
+      subject,
+      text,
+    });
+
+
   let today = new Date();
   if(foundSargyt){
     Sargytlar.update({
@@ -495,6 +585,7 @@ const Delete = async(req,res)=>{
 
   exports.create = create;
   exports.update = update;
+  exports.UpdateAdmin = UpdateAdmin;
   exports.updateStatus =updateStatus;
   exports.YukGowshuryldy = YukGowshuryldy;
   exports.SargytYatyryldy = SargytYatyryldy;

@@ -116,6 +116,7 @@ router.get("/sargyt/:sargyt_id",SargytlarController.getUserOneSargyt);
 
 router.post("/sargyt/create/:user_id",SargytlarController.create);
 router.patch("/sargyt/update/:sargyt_id",SargytlarController.update);
+router.patch("/sargyt/update/admin/:sargyt_id",SargytlarController.UpdateAdmin);
 router.patch("/sargyt/update/staus/:sargyt_id",SargytlarController.updateStatus);
 router.patch("/sargyt/update/delivered/:sargyt_id",SargytlarController.YukGowshuryldy);
 router.patch("/sargyt/update/yatyryldy/:sargyt_id",SargytlarController.SargytYatyryldy);
@@ -129,7 +130,7 @@ router.get("/tapylanlar",GozlegController.getAllGozlegTapyldy);
 router.get("/tapylmadyklar",GozlegController.getAllGozlegTapylmady);
 
 router.post("/gozleg/create/:user_id",GozlegController.create);
-
+router.patch("/gozleg/update/:gozleg_id",GozlegController.UpdateAdmin);
 router.patch("/tapyldy/:gozleg_id",GozlegController.Tapyldy);
 router.patch("/tapylmady/:gozleg_id",GozlegController.Tapylmady);
 

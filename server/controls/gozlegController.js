@@ -4,7 +4,7 @@ var sequelize = require("../../config/db");
 let fs = require("fs");
 const Users = require("../models/user");
 const Op = Sequelize.Op;
-
+const {sendEmailtoUser} =require("../../config/email");
 
  const gozleg_tb = async (req, res) => {
     const response = await sequelize
@@ -191,9 +191,89 @@ const Op = Sequelize.Op;
     
   }
 
+  const UpdateAdmin = async(req,res)=>{
+    const { gozleg_id } = req.params;
+    const data = req.body.data;
+    // getting base64 image and converting to buffer
+    function decodeBase64Image(dataString) {
+      var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
+        response = {};
+    
+      if (matches.length !== 3) {
+        return new Error('Invalid input string');
+      }
+    
+      response.type = matches[1];
+      response.data = new Buffer(matches[2], 'base64');
+    
+      return response;
+    }
+    let surat4="";
+    let surat5 = "";
+    let surat6 ="";
+    if(data.surat4){
+      var imageBuffer = decodeBase64Image(req.body.data.surat4.img);
+       // converting buffer to original image to /upload folder
+      let randomNumber = Math.floor(Math.random() * 999999999999);
+      console.log("random Number:",randomNumber);
+      surat4 = `./uploads/`+randomNumber+`${req.body.data.surat4.img_name}`;
+      fs.writeFile(surat4, imageBuffer.data, function(err) { console.log(err) });
+    }
+    if(data.surat5){
+      var imageBuffer5 = decodeBase64Image(data.surat5.img);
+       // converting buffer to original image to /upload folder
+      let randomNumber5 = Math.floor(Math.random() * 999999999999);
+      console.log("random Number:",randomNumber5);
+      surat2 = `./uploads/`+randomNumber5+`${data.surat5.img_name}`;
+      fs.writeFile(surat5, imageBuffer5.data, function(err) { console.log(err) });
+    }
+    if(data.surat6){
+      var imageBuffer6 = decodeBase64Image(data.surat6.img);
+       // converting buffer to original image to /upload folder
+      let randomNumber6 = Math.floor(Math.random() * 999999999999);
+      console.log("random Number:",randomNumber6);
+      surat6 = `./uploads/`+randomNumber6+`${data.surat6.img_name}`;
+      fs.writeFile(surat6, imageBuffer6.data, function(err) { console.log(err) });
+    }
+   
+    ///////////////////////////////////////////////////////////////////////////////////////////
+  
+    let today = new Date();
 
-  const Tapyldy = (req,res)=>{
+    Gozleg.update({
+        surat4:surat4,
+        surat5:surat5,
+        surat6:surat6
+    },{
+      where:{
+        id:gozleg_id
+      }
+    }
+    ).then(()=>{
+        res.status(200).json({
+            msg:"successfully"
+        })
+    }).catch((err)=>{
+        console.log(err);
+    })
+    
+  }
+
+
+  const Tapyldy = async(req,res)=>{
       const {gozleg_id} = req.params;
+
+      const FoundGozleg = await Gozleg.findOne({where:{id:gozleg_id}});
+      const UserData = await Users.findOne({where:{id:FoundGozleg.UserId}});
+      let userMail = UserData.email;
+      let subject = "Erk Trading Gözlegdäki haryt"
+      let text = `Siziň Gözlegdäki ${FoundGozleg.product_name} harydyňyz tapyldy! \n\n Ваш поисковый запрос ${FoundGozleg.product_name} найден!`;
+      await sendEmailtoUser({
+        userMail,
+        subject,
+        text,
+      });
+
       Gozleg.update({
           ordered:true,
       },
@@ -210,8 +290,19 @@ const Op = Sequelize.Op;
     })
   }
 
-  const Tapylmady = (req,res)=>{
+  const Tapylmady = async(req,res)=>{
     const {gozleg_id} = req.params;
+
+    const FoundGozleg = await Gozleg.findOne({where:{id:gozleg_id}});
+    const UserData = await Users.findOne({where:{id:FoundGozleg.UserId}});
+    let userMail = UserData.email;
+    let subject = "Erk Trading Gözlegdäki haryt"
+    let text = `Siziň Gözlegdäki ${FoundGozleg.product_name} harydyňyz tapylmady! \n\n Ваш поисковый запрос ${FoundGozleg.product_name} не найден!`;
+    await sendEmailtoUser({
+      userMail,
+      subject,
+      text,
+    });
     Gozleg.update({
         tapylmady:true,
     },
@@ -255,7 +346,7 @@ const Delete = async(req,res)=>{
   exports.getAllGozlegTapylmady = getAllGozlegTapylmady;
 
   exports.create = create;
-
+  exports.UpdateAdmin = UpdateAdmin;
   exports.Tapyldy = Tapyldy;
   exports.Tapylmady = Tapylmady;
 
