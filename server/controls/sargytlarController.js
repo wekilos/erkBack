@@ -230,6 +230,8 @@ const create = async(req,res)=>{
   let surat2 = "";
   let surat3 ="";
   let surat4 = "";
+  let surat5 = "";
+  let surat6 = "";
   if(data.surat1){
     var imageBuffer = decodeBase64Image(req.body.data.surat1.img);
      // converting buffer to original image to /upload folder
@@ -284,6 +286,8 @@ const create = async(req,res)=>{
     surat2:surat2,
     surat3:surat3,
     surat4:surat4,
+    surat5:surat5,
+    surat6:surat6,
     yukHazir:null,
     delivered:false,
     yatyryldy:false,
@@ -471,7 +475,7 @@ const updateStatus = async(req,res)=>{
   const {status_id,yukHazir} = req.body;
 
   const foundSargyt = await Sargytlar.findOne({where:{id:sargyt_id}});
-  const UserData = await Users.findOne({where:{id:fountSargyt.UserId}});
+  const UserData = await Users.findOne({where:{id:foundSargyt.UserId}});
 
   let userMail = UserData.email;
     let subject = "Erk Trading"
