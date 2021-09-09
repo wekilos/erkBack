@@ -236,7 +236,7 @@ const create = async(req,res)=>{
   let surat5 = "";
   let surat6 = "";
   if(data.surat1){
-    var imageBuffer = decodeBase64Image(req.body.data.surat1.img);
+    var imageBuffer = decodeBase64Image(data.surat1.img);
      // converting buffer to original image to /upload folder
     let randomNumber = Math.floor(Math.random() * 999999999999);
     console.log("random Number:",randomNumber);
