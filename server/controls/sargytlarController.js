@@ -212,6 +212,9 @@ const getUserOneSargyt = async(req,res)=>{
 const create = async(req,res)=>{
   const { user_id } = req.params;
   const data = req.body.data;
+
+  console.log(data);
+  
   // getting base64 image and converting to buffer
   function decodeBase64Image(dataString) {
     var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
