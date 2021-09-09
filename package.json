@@ -16,7 +16,6 @@
     "express-fileupload": "^1.2.1",
     "fs": "0.0.1-security",
     "helmet": "^4.6.0",
-    "heroku": "^7.56.1",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
     "multer": "^1.4.3",
