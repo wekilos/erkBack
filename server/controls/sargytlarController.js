@@ -213,7 +213,7 @@ const create = async(req,res)=>{
   const { user_id } = req.params;
   const data = req.body.data;
 
-  console.log(data);
+  // console.log(data);
   
   // getting base64 image and converting to buffer
   function decodeBase64Image(dataString) {
