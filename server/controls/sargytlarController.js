@@ -239,39 +239,39 @@ const create = async(req,res)=>{
     var imageBuffer = decodeBase64Image(data.surat1.img);
      // converting buffer to original image to /upload folder
     let randomNumber = Math.floor(Math.random() * 999999999999);
-    console.log("random Number:",randomNumber);
+    // console.log("random Number:",randomNumber);
     img_direction = `./uploads/`+randomNumber+`${req.body.data.surat1.img_name}`;
-    fs.writeFile(img_direction, imageBuffer.data, function(err) { console.log(err) });
+    await fs.writeFile(img_direction, imageBuffer.data, function(err) { console.log(err) });
   }
   if(data.surat2){
     var imageBuffer2 = decodeBase64Image(data.surat2.img);
      // converting buffer to original image to /upload folder
     let randomNumber2 = Math.floor(Math.random() * 999999999999);
-    console.log("random Number:",randomNumber2);
+    // console.log("random Number:",randomNumber2);
     surat2 = `./uploads/`+randomNumber2+`${data.surat2.img_name}`;
-    fs.writeFile(surat2, imageBuffer2.data, function(err) { console.log(err) });
+    await fs.writeFile(surat2, imageBuffer2.data, function(err) { console.log(err) });
   }
   if(data.surat3){
     var imageBuffer3 = decodeBase64Image(data.surat3.img);
      // converting buffer to original image to /upload folder
     let randomNumber3 = Math.floor(Math.random() * 999999999999);
-    console.log("random Number:",randomNumber3);
+    // console.log("random Number:",randomNumber3);
     surat3 = `./uploads/`+randomNumber3+`${data.surat3.img_name}`;
-    fs.writeFile(surat3, imageBuffer3.data, function(err) { console.log(err) });
+    await fs.writeFile(surat3, imageBuffer3.data, function(err) { console.log(err) });
   }
   if(data.surat4){
     var imageBuffer4 = decodeBase64Image(data.surat4.img);
      // converting buffer to original image to /upload folder
     let randomNumber4 = Math.floor(Math.random() * 999999999999);
-    console.log("random Number:",randomNumber4);
+    // console.log("random Number:",randomNumber4);
     surat4 = `./uploads/`+randomNumber4+`${data.surat4.img_name}`;
-    fs.writeFile(surat4, imageBuffer4.data, function(err) { console.log(err) });
+    await fs.writeFile(surat4, imageBuffer4.data, function(err) { console.log(err) });
   }
  
   ///////////////////////////////////////////////////////////////////////////////////////////
 
   let today = new Date();
-  console.log(data);
+  // console.log(data);
   Sargytlar.create({
     yol:data.yol,
     ugradyjy_ady:data.ugradyjy_ady,
