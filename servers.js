@@ -10,8 +10,8 @@ const PORT = process.env.PORT || 1111;
  
 
 app.use("/uploads",express.static("uploads"));
-app.use(bodyParser.json({limit: "100mb"}));
-app.use(bodyParser.urlencoded({limit: '100mb', extended: true,parameterLimit:50000}));
+app.use(bodyParser.json({limit: "1000mb"}));
+app.use(bodyParser.urlencoded({limit: '1000mb', extended: true,parameterLimit:50000}));
 app.use(
   cors({
     origin:"*"
