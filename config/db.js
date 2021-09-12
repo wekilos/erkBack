@@ -13,3 +13,4 @@ const sequelize = new Sequelize("erk", "postgres", "samsyk1902", {
 })
 
 module.exports = sequelize;
+
