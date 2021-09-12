@@ -2,6 +2,7 @@ var Sequelize = require("sequelize");
 var Sargytlar = require("../models/Sargytlar");
 var sequelize = require("../../config/db");
 let fs = require("fs");
+var formidable = require('formidable');
 const Users = require("../models/user");
 const Op = Sequelize.Op;
 
@@ -211,64 +212,39 @@ const getUserOneSargyt = async(req,res)=>{
 
 const create = async(req,res)=>{
   const { user_id } = req.params;
-  const data = req.body.data;
 
-  console.log(data);
-  
-  // getting base64 image and converting to buffer
-  function decodeBase64Image(dataString) {
-    var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
-      response = {};
-  
-    if (matches.length !== 3) {
-      return new Error('Invalid input string');
-    }
-  
-    response.type = matches[1];
-    response.data = new Buffer(matches[2], 'base64');
-  
-    return response;
-  }
+  let data1=req.files;
+  let data = req.body;
+
   let img_direction="";
   let surat2 = "";
   let surat3 ="";
   let surat4 = "";
   let surat5 = "";
   let surat6 = "";
-  if(data.surat1){
-    var imageBuffer = decodeBase64Image(data.surat1.img);
-     // converting buffer to original image to /upload folder
+  if(data1.surat1){
     let randomNumber = Math.floor(Math.random() * 999999999999);
-    // console.log("random Number:",randomNumber);
-    img_direction = `./uploads/`+randomNumber+`${req.body.data.surat1.img_name}`;
-    await fs.writeFile(img_direction, imageBuffer.data, function(err) { console.log(err) });
+    img_direction = `./uploads/`+randomNumber+`${data1.surat1.name}`;
+    data1.surat1.mv(img_direction, (err) => {
+      console.log(err);
+    })
   }
-  if(data.surat2){
-    var imageBuffer2 = decodeBase64Image(data.surat2.img);
-     // converting buffer to original image to /upload folder
+  if(data1.surat2){
     let randomNumber2 = Math.floor(Math.random() * 999999999999);
-    // console.log("random Number:",randomNumber2);
-    surat2 = `./uploads/`+randomNumber2+`${data.surat2.img_name}`;
-    await fs.writeFile(surat2, imageBuffer2.data, function(err) { console.log(err) });
+    surat2 = `./uploads/`+randomNumber2+`${data1.surat2.name}`;
+    data1.surat2.mv(surat2, (err) => {
+      console.log(err);
+    });
   }
-  if(data.surat3){
-    var imageBuffer3 = decodeBase64Image(data.surat3.img);
-     // converting buffer to original image to /upload folder
+  if(data1.surat3){
     let randomNumber3 = Math.floor(Math.random() * 999999999999);
-    // console.log("random Number:",randomNumber3);
-    surat3 = `./uploads/`+randomNumber3+`${data.surat3.img_name}`;
-    await fs.writeFile(surat3, imageBuffer3.data, function(err) { console.log(err) });
-  }
-  if(data.surat4){
-    var imageBuffer4 = decodeBase64Image(data.surat4.img);
-     // converting buffer to original image to /upload folder
-    let randomNumber4 = Math.floor(Math.random() * 999999999999);
-    // console.log("random Number:",randomNumber4);
-    surat4 = `./uploads/`+randomNumber4+`${data.surat4.img_name}`;
-    await fs.writeFile(surat4, imageBuffer4.data, function(err) { console.log(err) });
+    surat3 = `./uploads/`+randomNumber3+`${data1.surat3.name}`;
+    data1.surat3.mv(surat3, (err) => {
+      console.log(err);
+    });
   }
  
-  ///////////////////////////////////////////////////////////////////////////////////////////
+  // ///////////////////////////////////////////////////////////////////////////////////////////
 
   let today = new Date();
   // console.log(data);
@@ -310,64 +286,45 @@ const create = async(req,res)=>{
 
 const update = async(req,res)=>{
   const { sargyt_id } = req.params;
-  const data = req.body.data;
   const olData = await Sargytlar.findOne({where:{id:sargyt_id}});
-  // getting base64 image and converting to buffer
-  function decodeBase64Image(dataString) {
-    var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
-      response = {};
-  
-    if (matches.length !== 3) {
-      return new Error('Invalid input string');
-    }
-  
-    response.type = matches[1];
-    response.data = new Buffer(matches[2], 'base64');
-  
-    return response;
-  }
-  if(req.body.data.img){
-    var imageBuffer = decodeBase64Image(req.body.data.img);
-     // converting buffer to original image to /upload folder
+  let data1=req.files;
+  let data = req.body;
+
+  let img_direction="";
+  let surat2 = "";
+  let surat3 ="";
+  let surat4 = "";
+  let surat5 = "";
+  let surat6 = "";
+  if(data1.surat1){
     let randomNumber = Math.floor(Math.random() * 999999999999);
-    console.log("random Number:",randomNumber);
-    let img_direction = `./uploads/`+randomNumber+`${req.body.data.img_name}`;
-    fs.writeFile(img_direction, imageBuffer.data, function(err) { console.log(err) });
+    img_direction = `./uploads/`+randomNumber+`${data1.surat1.name}`;
+    data1.surat1.mv(img_direction, (err) => {
+      console.log(err);
+    })
   }else{
-    img_direction=olData.product_image;
+    img_direction=olData.img_direction;
   }
-  if(data.surat2){
-    var imageBuffer2 = decodeBase64Image(data.surat2);
-     // converting buffer to original image to /upload folder
+  if(data1.surat2){
     let randomNumber2 = Math.floor(Math.random() * 999999999999);
-    console.log("random Number:",randomNumber2);
-    let surat2 = `./uploads/`+randomNumber2+`${data.surat2}`;
-    fs.writeFile(surat2, imageBuffer2.data, function(err) { console.log(err) });
+    surat2 = `./uploads/`+randomNumber2+`${data1.surat2.name}`;
+    data1.surat2.mv(surat2, (err) => {
+      console.log(err);
+    });
   }else{
     surat2=olData.surat2;
   }
-  if(data.surat3){
-    var imageBuffer3 = decodeBase64Image(data.surat3);
-     // converting buffer to original image to /upload folder
+  if(data1.surat3){
     let randomNumber3 = Math.floor(Math.random() * 999999999999);
-    console.log("random Number:",randomNumber3);
-    let surat3 = `./uploads/`+randomNumber3+`${data.surat3}`;
-    fs.writeFile(surat3, imageBuffer3.data, function(err) { console.log(err) });
+    surat3 = `./uploads/`+randomNumber3+`${data1.surat3.name}`;
+    data1.surat3.mv(surat3, (err) => {
+      console.log(err);
+    });
   }else{
     surat3=olData.surat3;
   }
-  if(data.surat4){
-    var imageBuffer4 = decodeBase64Image(data.surat4);
-     // converting buffer to original image to /upload folder
-    let randomNumber4 = Math.floor(Math.random() * 999999999999);
-    console.log("random Number:",randomNumber4);
-    let surat4 = `./uploads/`+randomNumber4+`${data.surat4}`;
-    fs.writeFile(surat4, imageBuffer4.data, function(err) { console.log(err) });
-  }else{
-    surat4=olData.surat4;
-  }
  
-  ///////////////////////////////////////////////////////////////////////////////////////////
+  // ///////////////////////////////////////////////////////////////////////////////////////////
 
 
   Sargytlar.update({
@@ -403,50 +360,33 @@ const update = async(req,res)=>{
 
 const UpdateAdmin = async(req,res)=>{
   const { sargyt_id } = req.params;
-  const data = req.body.data;
-  // getting base64 image and converting to buffer
-  function decodeBase64Image(dataString) {
-    var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
-      response = {};
+  let data1=req.files;
   
-    if (matches.length !== 3) {
-      return new Error('Invalid input string');
-    }
-  
-    response.type = matches[1];
-    response.data = new Buffer(matches[2], 'base64');
-  
-    return response;
-  }
-
   let FountSargyt = await Sargytlar.findOne({where:{id:sargyt_id}});
 
   let surat4=FountSargyt.surat4;
   let surat5 = FountSargyt.surat5;
   let surat6 =FountSargyt.surat6;
-  if(data.surat4){
-    var imageBuffer = decodeBase64Image(req.body.data.surat4.img);
-     // converting buffer to original image to /upload folder
+  if(data1.surat4){
     let randomNumber = Math.floor(Math.random() * 999999999999);
-    console.log("random Number:",randomNumber);
-    surat4 = `./uploads/`+randomNumber+`${req.body.data.surat4.img_name}`;
-    fs.writeFile(surat4, imageBuffer.data, function(err) { console.log(err) });
+    surat4 = `./uploads/`+randomNumber+`${data1.surat4.name}`;
+    data1.surat4.mv(surat4, (err) => {
+      console.log(err);
+    })
   }
-  if(data.surat5){
-    var imageBuffer5 = decodeBase64Image(data.surat5.img);
-     // converting buffer to original image to /upload folder
-    let randomNumber5 = Math.floor(Math.random() * 999999999999);
-    console.log("random Number:",randomNumber5);
-    surat5 = `./uploads/`+randomNumber5+`${data.surat5.img_name}`;
-    fs.writeFile(surat5, imageBuffer5.data, function(err) { console.log(err) });
+  if(data1.surat5){
+    let randomNumber2 = Math.floor(Math.random() * 999999999999);
+    surat5 = `./uploads/`+randomNumber2+`${data1.surat5.name}`;
+    data1.surat5.mv(surat5, (err) => {
+      console.log(err);
+    });
   }
-  if(data.surat6){
-    var imageBuffer6 = decodeBase64Image(data.surat6.img);
-     // converting buffer to original image to /upload folder
-    let randomNumber6 = Math.floor(Math.random() * 999999999999);
-    console.log("random Number:",randomNumber6);
-    surat6 = `./uploads/`+randomNumber6+`${data.surat6.img_name}`;
-    fs.writeFile(surat6, imageBuffer6.data, function(err) { console.log(err) });
+  if(data1.surat6){
+    let randomNumber3 = Math.floor(Math.random() * 999999999999);
+    surat6 = `./uploads/`+randomNumber3+`${data1.surat6.name}`;
+    data1.surat6.mv(surat6, (err) => {
+      console.log(err);
+    });
   }
  
   ///////////////////////////////////////////////////////////////////////////////////////////

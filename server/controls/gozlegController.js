@@ -120,49 +120,33 @@ const {sendEmailtoUser} =require("../../config/email");
 
   const create = async(req,res)=>{
     const { user_id } = req.params;
-    const data = req.body.data;
-    // getting base64 image and converting to buffer
-    function decodeBase64Image(dataString) {
-      var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
-        response = {};
+    const data = req.body;
+    const data1 = req.files;
     
-      if (matches.length !== 3) {
-        return new Error('Invalid input string');
-      }
-    
-      response.type = matches[1];
-      response.data = new Buffer(matches[2], 'base64');
-    
-      return response;
-    }
     let img_direction="";
     let surat2 = "";
     let surat3 ="";
-    if(data.surat1){
-      var imageBuffer = decodeBase64Image(req.body.data.surat1.img);
-       // converting buffer to original image to /upload folder
+    if(data1.surat1){
       let randomNumber = Math.floor(Math.random() * 999999999999);
-      console.log("random Number:",randomNumber);
-      img_direction = `./uploads/`+randomNumber+`${req.body.data.surat1.img_name}`;
-      fs.writeFile(img_direction, imageBuffer.data, function(err) { console.log(err) });
+      img_direction = `./uploads/`+randomNumber+`${data1.surat1.name}`;
+      data1.surat1.mv(img_direction, (err) => {
+        console.log(err);
+      })
     }
-    if(data.surat2){
-      var imageBuffer2 = decodeBase64Image(data.surat2.img);
-       // converting buffer to original image to /upload folder
+    if(data1.surat2){
       let randomNumber2 = Math.floor(Math.random() * 999999999999);
-      console.log("random Number:",randomNumber2);
-      surat2 = `./uploads/`+randomNumber2+`${data.surat2.img_name}`;
-      fs.writeFile(surat2, imageBuffer2.data, function(err) { console.log(err) });
+      surat2 = `./uploads/`+randomNumber2+`${data1.surat2.name}`;
+      data1.surat2.mv(surat2, (err) => {
+        console.log(err);
+      });
     }
-    if(data.surat3){
-      var imageBuffer3 = decodeBase64Image(data.surat3.img);
-       // converting buffer to original image to /upload folder
+    if(data1.surat3){
       let randomNumber3 = Math.floor(Math.random() * 999999999999);
-      console.log("random Number:",randomNumber3);
-      surat3 = `./uploads/`+randomNumber3+`${data.surat3.img_name}`;
-      fs.writeFile(surat3, imageBuffer3.data, function(err) { console.log(err) });
+      surat3 = `./uploads/`+randomNumber3+`${data1.surat3.name}`;
+      data1.surat3.mv(surat3, (err) => {
+        console.log(err);
+      });
     }
-   
     ///////////////////////////////////////////////////////////////////////////////////////////
   
     let today = new Date();
@@ -193,48 +177,34 @@ const {sendEmailtoUser} =require("../../config/email");
 
   const UpdateAdmin = async(req,res)=>{
     const { gozleg_id } = req.params;
-    const data = req.body.data;
-    // getting base64 image and converting to buffer
-    function decodeBase64Image(dataString) {
-      var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
-        response = {};
+    const data = req.body;
+    const data1=req.files;
     
-      if (matches.length !== 3) {
-        return new Error('Invalid input string');
-      }
-    
-      response.type = matches[1];
-      response.data = new Buffer(matches[2], 'base64');
-    
-      return response;
-    }
     let surat4="";
     let surat5 = "";
     let surat6 ="";
-    if(data.surat4){
-      var imageBuffer = decodeBase64Image(req.body.data.surat4.img);
-       // converting buffer to original image to /upload folder
+    if(data1.surat4){
       let randomNumber = Math.floor(Math.random() * 999999999999);
-      console.log("random Number:",randomNumber);
-      surat4 = `./uploads/`+randomNumber+`${req.body.data.surat4.img_name}`;
-      fs.writeFile(surat4, imageBuffer.data, function(err) { console.log(err) });
+      surat4 = `./uploads/`+randomNumber+`${data1.surat4.name}`;
+      data1.surat4.mv(surat4, (err) => {
+        console.log(err);
+      })
     }
-    if(data.surat5){
-      var imageBuffer5 = decodeBase64Image(data.surat5.img);
-       // converting buffer to original image to /upload folder
-      let randomNumber5 = Math.floor(Math.random() * 999999999999);
-      console.log("random Number:",randomNumber5);
-      surat2 = `./uploads/`+randomNumber5+`${data.surat5.img_name}`;
-      fs.writeFile(surat5, imageBuffer5.data, function(err) { console.log(err) });
+    if(data1.surat5){
+      let randomNumber2 = Math.floor(Math.random() * 999999999999);
+      surat5 = `./uploads/`+randomNumber2+`${data1.surat5.name}`;
+      data1.surat5.mv(surat5, (err) => {
+        console.log(err);
+      });
     }
-    if(data.surat6){
-      var imageBuffer6 = decodeBase64Image(data.surat6.img);
-       // converting buffer to original image to /upload folder
-      let randomNumber6 = Math.floor(Math.random() * 999999999999);
-      console.log("random Number:",randomNumber6);
-      surat6 = `./uploads/`+randomNumber6+`${data.surat6.img_name}`;
-      fs.writeFile(surat6, imageBuffer6.data, function(err) { console.log(err) });
+    if(data1.surat6){
+      let randomNumber3 = Math.floor(Math.random() * 999999999999);
+      surat6 = `./uploads/`+randomNumber3+`${data1.surat6.name}`;
+      data1.surat6.mv(surat6, (err) => {
+        console.log(err);
+      });
     }
+   
    
     ///////////////////////////////////////////////////////////////////////////////////////////
   
