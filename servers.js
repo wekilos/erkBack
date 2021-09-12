@@ -5,10 +5,11 @@ const cors = require("cors");
 const multer = require("multer");
 const upload = multer();
 const app = express();
+const fileupload = require('express-fileupload')
 const PORT = process.env.PORT || 1234;
  app.listen(PORT, () => console.log("listening on *:",PORT));
  
-
+app.use(fileupload());
 app.use("/uploads",express.static("uploads"));
 app.use(bodyParser.json({limit: "1000mb"}));
 app.use(bodyParser.urlencoded({limit: '1000mb', extended: true,parameterLimit:50000}));
