@@ -5,7 +5,8 @@ const USERNAME = process.env.USERNAME || 'postgres';
 const PASSWORD = process.env.PASSWORD || '';
 const HOST = process.env.HOST ;
 
-const sequelize = new Sequelize("erk", "postgres", "LalaGreenBazar112", {
+// LalaGreenBazar112
+const sequelize = new Sequelize("erk", "postgres", "samsyk1902", {
   host:  'localhost',
   port: "5432",
   dialect: "postgres",

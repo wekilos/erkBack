@@ -10,14 +10,14 @@ const PORT = process.env.PORT || 1234;
  
 
 app.use("/uploads",express.static("uploads"));
-app.use(bodyParser.json({limit: "10000000mb"}));
-app.use(bodyParser.urlencoded({limit: '10000000mb', extended: true,parameterLimit:50000000}));
+app.use(bodyParser.json({limit: "1000mb"}));
+app.use(bodyParser.urlencoded({limit: '1000mb', extended: true,parameterLimit:50000}));
 app.use(
   cors({
     origin:"*"
   })
 );
-app.use(upload.single("surat"));
+// app.use(upload.single("surat"));
 app.use((req, res, next) => {
   // const allowedOrigins = ["http://localhost:3000"];
   // const origin = req.headers.origin;

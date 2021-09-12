@@ -213,7 +213,7 @@ const create = async(req,res)=>{
   const { user_id } = req.params;
   const data = req.body.data;
 
-  // console.log(data);
+  console.log(data);
   
   // getting base64 image and converting to buffer
   function decodeBase64Image(dataString) {
@@ -478,6 +478,7 @@ const updateStatus = async(req,res)=>{
   const {status_id,yukHazir} = req.body;
 
   const foundSargyt = await Sargytlar.findOne({where:{id:sargyt_id}});
+  
   const UserData = await Users.findOne({where:{id:foundSargyt.UserId}});
 
   let userMail = UserData.email;
