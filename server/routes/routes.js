@@ -74,45 +74,45 @@ router.get("/gozleg_tb",GozlegController.gozleg_tb);
 
 // User route
 
-router.get("/users",UserControllers.list);
-router.get("/user/:user_id",UserControllers.getOneUser);
+router.get("/users",cache.get,UserControllers.list,cache.set);
+router.get("/user/:user_id",cache.get,UserControllers.getOneUser,cache.set);
 router.post("/user/create",UserControllers.create);
 router.post("/user/login",UserControllers.login);
 router.patch("/user/update/:user_id",UserControllers.update_user);
 router.delete("/user/delete/:user_id",UserControllers.delete_user);
 
 //Shertler routes 
-router.get("/shertler",ShertlerController.allShertler);
+router.get("/shertler",cache.get,ShertlerController.allShertler,cache.set);
 router.post("/shert/create",ShertlerController.create);
 router.patch("/shert/update/:shert_id",ShertlerController.update);
 router.delete("/shert/delete/:shert_id",ShertlerController.Delete);
 
 //Soraglar routes
-router.get("/soraglar",SoraglaController.allSoraglar);
+router.get("/soraglar",cache.get,SoraglaController.allSoraglar,cache.set);
 router.post("/sorag/create",SoraglaController.create);
 router.patch("/sorag/update/:sorag_id",SoraglaController.update);
 router.delete("/sorag/delete/:sorag_id",SoraglaController.Delete);
 
 //Status routes
-router.get("/statuslar",StatusController.allStatus);
+router.get("/statuslar",cache.get,StatusController.allStatus,cache.set);
 router.post("/status/create",StatusController.create);
 router.patch("/status/update/:status_id",StatusController.update);
 router.delete("/status/delete/:status_id",StatusController.Delete);
 
 //Config routes
-router.get("/configs",ConfigController.allConfig);
+router.get("/configs",cache.get,ConfigController.allConfig,cache.set);
 router.post("/config/create",ConfigController.create);
 router.patch("/config/update/:config_id",ConfigController.update);
 router.delete("/config/delete/:config_id",ConfigController.Delete);
 
 // Sargytlar routes
-router.get("/sargytlar",SargytlarController.allSartgyt);
-router.get("/sargytlar/delivered",SargytlarController.allSartgytDelivered);
-router.get("/sargytlar/yatyryldy",SargytlarController.allSargytYatyryldy);
+router.get("/sargytlar",cache.get,SargytlarController.allSartgyt,cache.set);
+router.get("/sargytlar/delivered",cache.get,SargytlarController.allSartgytDelivered,cache.set);
+router.get("/sargytlar/yatyryldy",cache.get,SargytlarController.allSargytYatyryldy,cache.set);
 
-router.get("/sargytlar/:user_id",SargytlarController.getAllUserSargytlar);
-router.get("/sargytlar/taryh/:user_id",SargytlarController.getAllUserSargytlarDone);
-router.get("/sargyt/:sargyt_id",SargytlarController.getUserOneSargyt);
+router.get("/sargytlar/:user_id",cache.get,SargytlarController.getAllUserSargytlar,cache.set);
+router.get("/sargytlar/taryh/:user_id",cache.get,SargytlarController.getAllUserSargytlarDone,cache.set);
+router.get("/sargyt/:sargyt_id",cache.get,SargytlarController.getUserOneSargyt,cache.set);
 
 router.post("/sargyt/create/:user_id",SargytlarController.create);
 router.patch("/sargyt/update/:sargyt_id",SargytlarController.update);
@@ -125,9 +125,9 @@ router.delete("/sargyt/delete/:sargyt_id",SargytlarController.Delete);
 
 // Gozleg routes
 
-router.get("/gozlegdakiler",GozlegController.getAllGozleg);
-router.get("/tapylanlar",GozlegController.getAllGozlegTapyldy);
-router.get("/tapylmadyklar",GozlegController.getAllGozlegTapylmady);
+router.get("/gozlegdakiler",cache.get,GozlegController.getAllGozleg,cache.set);
+router.get("/tapylanlar",cache.get,GozlegController.getAllGozlegTapyldy,cache.set);
+router.get("/tapylmadyklar",cache.get,GozlegController.getAllGozlegTapylmady,cache.set);
 
 router.post("/gozleg/create/:user_id",GozlegController.create);
 router.patch("/gozleg/update/:gozleg_id",GozlegController.UpdateAdmin);
