@@ -1,18 +1,18 @@
 {
 
     "development": {
-      "database":"erk",
+      "database":"erkdb",
       "host": "localhost",
       "dialect": "postgres"
     },
     "test": {
-      "database":"erk",
+      "database":"erkdb",
       "host": "localhost",
       "dialect": "postgres"
     },
     "production": {
       "use_env_variable": "DATABASE_URL",
-      "database":"erk",
+      "database":"erkdb",
       "host": "localhost",
       "dialect": "postgres"
     }
