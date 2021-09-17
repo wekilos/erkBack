@@ -126,21 +126,21 @@ const {sendEmailtoUser} =require("../../config/email");
     let img_direction="";
     let surat2 = "";
     let surat3 ="";
-    if(data1.surat1){
+    if(req.files.surat1){
       let randomNumber = Math.floor(Math.random() * 999999999999);
       img_direction = `./uploads/`+randomNumber+`${data1.surat1.name}`;
       data1.surat1.mv(img_direction, (err) => {
         console.log(err);
       })
     }
-    if(data1.surat2){
+    if(req.files.surat2){
       let randomNumber2 = Math.floor(Math.random() * 999999999999);
       surat2 = `./uploads/`+randomNumber2+`${data1.surat2.name}`;
       data1.surat2.mv(surat2, (err) => {
         console.log(err);
       });
     }
-    if(data1.surat3){
+    if(req.files.surat3){
       let randomNumber3 = Math.floor(Math.random() * 999999999999);
       surat3 = `./uploads/`+randomNumber3+`${data1.surat3.name}`;
       data1.surat3.mv(surat3, (err) => {
@@ -183,21 +183,21 @@ const {sendEmailtoUser} =require("../../config/email");
     let surat4="";
     let surat5 = "";
     let surat6 ="";
-    if(data1.surat4){
+    if(req.files.surat4){
       let randomNumber = Math.floor(Math.random() * 999999999999);
       surat4 = `./uploads/`+randomNumber+`${data1.surat4.name}`;
       data1.surat4.mv(surat4, (err) => {
         console.log(err);
       })
     }
-    if(data1.surat5){
+    if(req.files.surat5){
       let randomNumber2 = Math.floor(Math.random() * 999999999999);
       surat5 = `./uploads/`+randomNumber2+`${data1.surat5.name}`;
       data1.surat5.mv(surat5, (err) => {
         console.log(err);
       });
     }
-    if(data1.surat6){
+    if(req.files.surat6){
       let randomNumber3 = Math.floor(Math.random() * 999999999999);
       surat6 = `./uploads/`+randomNumber3+`${data1.surat6.name}`;
       data1.surat6.mv(surat6, (err) => {
