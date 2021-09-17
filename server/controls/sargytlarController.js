@@ -213,7 +213,9 @@ const getUserOneSargyt = async(req,res)=>{
 const create = async(req,res)=>{
   const { user_id } = req.params;
 
-  let data1=req.files;
+  let data1;
+  if(req.files) {
+  data1=req.files;}
   let data = req.body;
 
   let img_direction="";
@@ -222,21 +224,21 @@ const create = async(req,res)=>{
   let surat4 = "";
   let surat5 = "";
   let surat6 = "";
-  if(data1.surat1){
+  if(req.files.surat1){
     let randomNumber = Math.floor(Math.random() * 999999999999);
     img_direction = `./uploads/`+randomNumber+`${data1.surat1.name}`;
     data1.surat1.mv(img_direction, (err) => {
       console.log(err);
     })
   }
-  if(data1.surat2){
+  if(req.files.surat2){
     let randomNumber2 = Math.floor(Math.random() * 999999999999);
     surat2 = `./uploads/`+randomNumber2+`${data1.surat2.name}`;
     data1.surat2.mv(surat2, (err) => {
       console.log(err);
     });
   }
-  if(data1.surat3){
+  if(req.files.surat3){
     let randomNumber3 = Math.floor(Math.random() * 999999999999);
     surat3 = `./uploads/`+randomNumber3+`${data1.surat3.name}`;
     data1.surat3.mv(surat3, (err) => {
