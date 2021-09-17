@@ -290,7 +290,7 @@ const update = async(req,res)=>{
   let data1=req.files;
   let data = req.body;
 
-  let img_direction="";
+  let img_direction=" ";
   let surat2 = "";
   let surat3 ="";
   let surat4 = "";
@@ -363,6 +363,7 @@ const UpdateAdmin = async(req,res)=>{
   let data1=req.files;
   
   let FountSargyt = await Sargytlar.findOne({where:{id:sargyt_id}});
+
 
   let surat4=FountSargyt.surat4;
   let surat5 = FountSargyt.surat5;
