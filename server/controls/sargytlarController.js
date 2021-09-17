@@ -213,9 +213,7 @@ const getUserOneSargyt = async(req,res)=>{
 const create = async(req,res)=>{
   const { user_id } = req.params;
 
-  let data1;
-  if(req.files) {
-  data1=req.files;}
+  let data1=req.files;
   let data = req.body;
 
   let img_direction="";
