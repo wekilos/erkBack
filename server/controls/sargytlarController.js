@@ -224,21 +224,21 @@ const create = async(req,res)=>{
   let surat4 = "";
   let surat5 = "";
   let surat6 = "";
-  if(req.files.surat1){
+  if(req.files && req.files.surat1){
     let randomNumber = Math.floor(Math.random() * 999999999999);
     img_direction = `./uploads/`+randomNumber+`${data1.surat1.name}`;
     data1.surat1.mv(img_direction, (err) => {
       console.log(err);
     })
   }
-  if(req.files.surat2){
+  if(req.files && req.files.surat2){
     let randomNumber2 = Math.floor(Math.random() * 999999999999);
     surat2 = `./uploads/`+randomNumber2+`${data1.surat2.name}`;
     data1.surat2.mv(surat2, (err) => {
       console.log(err);
     });
   }
-  if(req.files.surat3){
+  if(req.files && req.files.surat3){
     let randomNumber3 = Math.floor(Math.random() * 999999999999);
     surat3 = `./uploads/`+randomNumber3+`${data1.surat3.name}`;
     data1.surat3.mv(surat3, (err) => {
@@ -298,7 +298,7 @@ const update = async(req,res)=>{
   let surat4 = "";
   let surat5 = "";
   let surat6 = "";
-  if(req.files.surat1){
+  if(req.files && req.files.surat1){
     let randomNumber = Math.floor(Math.random() * 999999999999);
     img_direction = `./uploads/`+randomNumber+`${data1.surat1.name}`;
     data1.surat1.mv(img_direction, (err) => {
@@ -307,7 +307,7 @@ const update = async(req,res)=>{
   }else{
     img_direction=olData.img_direction;
   }
-  if(req.files.surat2){
+  if(req.files && req.files.surat2){
     let randomNumber2 = Math.floor(Math.random() * 999999999999);
     surat2 = `./uploads/`+randomNumber2+`${data1.surat2.name}`;
     data1.surat2.mv(surat2, (err) => {
@@ -316,7 +316,7 @@ const update = async(req,res)=>{
   }else{
     surat2=olData.surat2;
   }
-  if(req.files.surat3){
+  if(req.files && req.files.surat3){
     let randomNumber3 = Math.floor(Math.random() * 999999999999);
     surat3 = `./uploads/`+randomNumber3+`${data1.surat3.name}`;
     data1.surat3.mv(surat3, (err) => {
@@ -369,21 +369,21 @@ const UpdateAdmin = async(req,res)=>{
   let surat4=FountSargyt.surat4;
   let surat5 = FountSargyt.surat5;
   let surat6 =FountSargyt.surat6;
-  if(req.files.surat4){
+  if(req.files && req.files.surat4){
     let randomNumber = Math.floor(Math.random() * 999999999999);
     surat4 = `./uploads/`+randomNumber+`${data1.surat4.name}`;
     data1.surat4.mv(surat4, (err) => {
       console.log(err);
     })
   }
-  if(req.files.surat5){
+  if(req.files && req.files.surat5){
     let randomNumber2 = Math.floor(Math.random() * 999999999999);
     surat5 = `./uploads/`+randomNumber2+`${data1.surat5.name}`;
     data1.surat5.mv(surat5, (err) => {
       console.log(err);
     });
   }
-  if(req.files.surat6){
+  if(req.files && req.files.surat6){
     let randomNumber3 = Math.floor(Math.random() * 999999999999);
     surat6 = `./uploads/`+randomNumber3+`${data1.surat6.name}`;
     data1.surat6.mv(surat6, (err) => {
