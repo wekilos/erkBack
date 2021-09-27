@@ -57,7 +57,10 @@ const Op = Sequelize.Op;
           {delivered:false},
           {yatyryldy:false},Yol,All,StatusId
         ]
-      }
+      },
+      order: [
+        ['id', 'DESC'],
+    ]
     }).then((data)=>{
       res.status(200).json(data);
     }).catch((err)=>{
@@ -98,7 +101,10 @@ var Yol = yol
       [Op.and]:[
         {delivered:true},Yol,All,StatusId
       ]
-    }
+    },
+    order: [
+      ['id', 'DESC'],
+  ]
   }).then((data)=>{
     res.status(200).json(data);
   }).catch((err)=>{
@@ -139,7 +145,10 @@ Sargytlar.findAll({
     [Op.and]:[
       {yatyryldy:true},All,StatusId,Yol
     ]
-  }
+  },
+  order: [
+    ['id', 'DESC'],
+]
 }).then((data)=>{
   res.status(200).json(data);
 }).catch((err)=>{
@@ -148,7 +157,18 @@ Sargytlar.findAll({
 }
 
 const getAllUserSargytlar = async(req,res)=>{
-  const {user_id} = req.params
+  const {user_id} = req.params;
+  const { all } = req.query;
+  console.log("all,statusesId",all);
+  let all1 = parseInt(all);
+  var All = all1
+  ? {
+    [Op.or]: [
+      { id: { [Op.eq]: all } },
+      { total_price: { [Op.eq]: all } },All
+    ],
+    }
+  : null;
   Sargytlar.findAll({
     include:[{
       model:Users,
@@ -158,9 +178,12 @@ const getAllUserSargytlar = async(req,res)=>{
       [Op.and]:[
         {delivered:false},
         {yatyryldy:false},
-        {UserId:user_id}
+        {UserId:user_id},All
       ]
-    }
+    },
+    order: [
+      ['id', 'DESC'],
+  ]
   }).then((data)=>{
     res.status(200).json(data);
   }).catch((err)=>{
@@ -170,6 +193,18 @@ const getAllUserSargytlar = async(req,res)=>{
 
 const getAllUserSargytlarDone = async(req,res)=>{
   const {user_id} = req.params
+  const { all } = req.query;
+  console.log("all,statusesId",all);
+  let all1 = parseInt(all);
+  var All = all1
+  ? {
+    [Op.or]: [
+      { id: { [Op.eq]: all } },
+      { total_price: { [Op.eq]: all } },
+    ],
+    }
+  : null;
+
   Sargytlar.findAll({
     include:[{
       model:Users,
@@ -182,9 +217,12 @@ const getAllUserSargytlarDone = async(req,res)=>{
           {delivered:true},
           {yatyryldy:true},
         ]},
-        {UserId:user_id}
+        {UserId:user_id},All
       ]
-    }
+    },
+    order: [
+      ['id', 'DESC'],
+  ]
   }).then((data)=>{
     res.status(200).json(data);
   }).catch((err)=>{
@@ -423,19 +461,7 @@ const updateStatus = async(req,res)=>{
   const UserData = await Users.findOne({where:{id:foundSargyt.UserId}});
 
   let userMail = UserData.email;
-    let subject = "Erk Trading"
-    let text = "";
-    if(status_id==1){text = "Siziň harydyňyzyň Gelmegine Garaşylýar! \n\n Ваш товар в ожидании!";}
-    if(status_id==2){text = "Siziň harydyňyz Ammara geldi! \n\n Ваш товар Прибыл на склад!";}
-    if(status_id==3){text = "Siziň Ýüküňiz ugradyldy! \n\n Ваш груз отправлен!";}
-    if(status_id==4){text = "Siziň harydyňyz Ýolda! \n\n Ваш товар В пути!";}
-    if(status_id==5){text = "Siziň harydyňyz Türkmenistanyň ammaryna geldi! \n\n Ваш товар Прибыл на склад в Туркменистан!";}
-    if(status_id==6){text = "Siziň harydyňyz Gowşurma nokadyna ugradyldy! \n\n Ваш товар Отправлено в пункт доставки!";}
-    await sendEmailtoUser({
-      userMail,
-      subject,
-      text,
-    });
+    
 
 
   let today = new Date();
@@ -451,7 +477,20 @@ const updateStatus = async(req,res)=>{
     }).then((data)=>{
       res.status(200).json({
         msg:"successfully"
-      })
+      });
+      let subject = "Erk Trading"
+    let text = "";
+    if(status_id==1){text = "Siziň harydyňyzyň Gelmegine Garaşylýar! \n\n Ваш товар в ожидании!";}
+    if(status_id==2){text = "Siziň harydyňyz Ammara geldi! \n\n Ваш товар Прибыл на склад!";}
+    if(status_id==3){text = "Siziň Ýüküňiz ugradyldy! \n\n Ваш груз отправлен!";}
+    if(status_id==4){text = "Siziň harydyňyz Ýolda! \n\n Ваш товар В пути!";}
+    if(status_id==5){text = "Siziň harydyňyz Türkmenistanyň ammaryna geldi! \n\n Ваш товар Прибыл на склад в Туркменистан!";}
+    if(status_id==6){text = "Siziň harydyňyz Gowşurma nokadyna ugradyldy! \n\n Ваш товар Отправлено в пункт доставки!";}
+     sendEmailtoUser({
+      userMail,
+      subject,
+      text,
+    });
     }).catch((err)=>{
       console.log(err);
     })
