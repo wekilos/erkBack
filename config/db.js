@@ -6,7 +6,7 @@ const PASSWORD = process.env.PASSWORD || '';
 const HOST = process.env.HOST ;
 
 // LalaGreenBazar112
-const sequelize = new Sequelize("erkdb", "postgres", "erkpass", {
+const sequelize = new Sequelize("erkdb", "postgres", "", {
   host:  'localhost',
   port: "5432",
   dialect: "postgres",
