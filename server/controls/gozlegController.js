@@ -45,7 +45,10 @@ const {sendEmailtoUser} =require("../../config/email");
         {ordered:false},
         {tapylmady:false},All
       ]
-    }
+    },
+    order: [
+      ['id', 'DESC'],
+  ]
   }).then((data)=>{
     res.status(200).json(data);
   }).catch((err)=>{
@@ -77,7 +80,10 @@ const {sendEmailtoUser} =require("../../config/email");
         {ordered:false},
         {tapylmady:true},All
       ]
-    }
+    },
+    order: [
+      ['id', 'DESC'],
+  ]
   }).then((data)=>{
     res.status(200).json(data);
   }).catch((err)=>{
@@ -109,7 +115,10 @@ const {sendEmailtoUser} =require("../../config/email");
         {ordered:true},
         {tapylmady:false},All
       ]
-    }
+    },
+    order: [
+      ['id', 'DESC'],
+  ]
   }).then((data)=>{
     res.status(200).json(data);
   }).catch((err)=>{
@@ -150,6 +159,7 @@ const {sendEmailtoUser} =require("../../config/email");
     ///////////////////////////////////////////////////////////////////////////////////////////
   
     let today = new Date();
+    today.setHours(today.getHours()+5);
 
     Gozleg.create({
         product_name:data.product_name,

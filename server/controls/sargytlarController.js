@@ -285,7 +285,8 @@ const create = async(req,res)=>{
   // ///////////////////////////////////////////////////////////////////////////////////////////
 
   let today = new Date();
-  // console.log(data);
+   today.setHours(today.getHours()+5);
+  // console.log("todayyyy",today.getHours());
   Sargytlar.create({
     yol:data.yol,
     ugradyjy_ady:data.ugradyjy_ady,
