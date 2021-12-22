@@ -6,7 +6,7 @@ const multer = require("multer");
 const upload = multer();
 const app = express();
 const fileupload = require('express-fileupload')
-const PORT = process.env.PORT || 1234;
+const PORT = process.env.PORT || 4321;
  app.listen(PORT, () => console.log("listening on *:",PORT));
  
 app.use(fileupload());
